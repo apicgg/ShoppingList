@@ -1,38 +1,55 @@
 import React, {useState} from 'react';
-import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
-// import {uuid} from 'uuidv4';
+import {Alert, FlatList, SafeAreaView, StyleSheet} from 'react-native';
+import uuid from 'react-native-uuid';
+import AddItem from './components/AddItem';
 import Header from './components/Header';
 import ListItem from './components/ListItem';
 
+type Item = {
+  id: string | number[];
+  text: string;
+}[];
+
 const App = () => {
-  const [items, setItems] = useState([
+  const [items, setItems] = useState<Item>([
     {
-      id: 1,
+      id: uuid.v4(),
       text: 'Milk',
     },
     {
-      id: 2,
+      id: uuid.v4(),
       text: 'Eggs',
     },
     {
-      id: 3,
+      id: uuid.v4(),
       text: 'Bread',
     },
     {
-      id: 4,
+      id: uuid.v4(),
       text: 'Butter',
     },
   ]);
 
-  const deleteItem = (id: number) => {
+  const deleteItem = (id: string | number[]) => {
     setItems(prevState => {
       return prevState.filter(item => item.id !== id);
     });
   };
 
+  const addItem = (text: string) => {
+    if (!text) {
+      Alert.alert('Error', 'Please enter adn item');
+    } else {
+      setItems(prevState => {
+        return [...prevState, {id: uuid.v4(), text}];
+      });
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Shopping List" />
+      <AddItem addItem={addItem} />
       <FlatList
         data={items}
         renderItem={({item}) => (

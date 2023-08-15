@@ -4,10 +4,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 type Prop = {
   item: {
-    id: number;
+    id: string | number[];
     text: string;
   };
-  deleteItem: (id: number) => void;
+  deleteItem: (id: string | number[]) => void;
 };
 
 const ListItem = ({item, deleteItem}: Prop) => {
