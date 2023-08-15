@@ -1,23 +1,51 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
+// import {uuid} from 'uuidv4';
+import Header from './components/Header';
+import ListItem from './components/ListItem';
 
 const App = () => {
+  const [items, setItems] = useState([
+    {
+      id: 1,
+      text: 'Milk',
+    },
+    {
+      id: 2,
+      text: 'Eggs',
+    },
+    {
+      id: 3,
+      text: 'Bread',
+    },
+    {
+      id: 4,
+      text: 'Butter',
+    },
+  ]);
+
+  const deleteItem = (id: number) => {
+    setItems(prevState => {
+      return prevState.filter(item => item.id !== id);
+    });
+  };
+
   return (
-    <View style={styles.header}>
-      <Text style={styles.text}>Hello World</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Header title="Shopping List" />
+      <FlatList
+        data={items}
+        renderItem={({item}) => (
+          <ListItem item={item} deleteItem={deleteItem} />
+        )}
+      />
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {
-    height: 60,
-    padding: 15,
-    backgroundColor: 'darkslateblue',
-  },
-  text: {
-    color: 'white',
-    fontSize: 23,
+  container: {
+    flex: 1,
   },
 });
 
