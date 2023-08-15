@@ -11,24 +11,7 @@ type Item = {
 }[];
 
 const App = () => {
-  const [items, setItems] = useState<Item>([
-    {
-      id: uuid.v4(),
-      text: 'Milk',
-    },
-    {
-      id: uuid.v4(),
-      text: 'Eggs',
-    },
-    {
-      id: uuid.v4(),
-      text: 'Bread',
-    },
-    {
-      id: uuid.v4(),
-      text: 'Butter',
-    },
-  ]);
+  const [items, setItems] = useState<Item>([]);
 
   const deleteItem = (id: string | number[]) => {
     setItems(prevState => {

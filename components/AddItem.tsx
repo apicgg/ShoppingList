@@ -16,17 +16,19 @@ const AddItem = ({addItem}: Prop) => {
   const [text, setText] = useState<string>('');
 
   const handleAddItem = (textValue: string) => {
-    setText(textValue);
+    addItem(textValue);
+    setText('');
   };
 
   return (
     <View>
       <TextInput
-        onChangeText={handleAddItem}
+        value={text}
+        onChangeText={setText}
         placeholder="Add item..."
         style={styles.input}
       />
-      <TouchableOpacity onPress={() => addItem(text)} style={styles.btn}>
+      <TouchableOpacity onPress={() => handleAddItem(text)} style={styles.btn}>
         <Text style={styles.btnText}>
           <FontAwesome name="plus" size={20} /> Add Item
         </Text>
